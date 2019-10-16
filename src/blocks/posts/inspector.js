@@ -14,12 +14,13 @@ import {
 	PanelBody,
 	ToggleControl,
 	RangeControl,
-	QueryControls,
 	RadioControl,
 	BaseControl,
 	ButtonGroup,
 	Button,
 } from '@wordpress/components';
+
+import AdvancedQueryControls from '../../components/advanced-query-controls';
 
 const Inspector = props => {
 	const {
@@ -161,7 +162,7 @@ const Inspector = props => {
 			{ hasPosts ?
 				<Fragment>
 					{ postFeedType === 'internal' &&
-						<QueryControls
+						<AdvancedQueryControls
 							{ ...{ order, orderBy } }
 							categoriesList={ categoriesList }
 							selectedCategoryId={ categoriesList.categories }
