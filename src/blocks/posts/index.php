@@ -12,7 +12,10 @@
  *
  * @return string Returns the block content.
  */
+
+
 function coblocks_render_posts_block( $attributes ) {
+
 
 	global $post;
 
@@ -74,7 +77,6 @@ function coblocks_render_posts_block( $attributes ) {
 
 	}
 
-	return coblocks_posts( $formatted_posts, $attributes );
 }
 
 /**
@@ -339,7 +341,6 @@ function coblocks_get_rss_post_info( $posts ) {
  * Registers the `posts` block on server.
  */
 function coblocks_register_posts_block() {
-
 	if ( ! function_exists( 'register_block_type' ) ) {
 
 		return;
@@ -417,3 +418,53 @@ function coblocks_register_posts_block() {
 	);
 }
 add_action( 'init', 'coblocks_register_posts_block' );
+
+
+add_filter( 'posts_where', 'hl_posts_where', 10, 2 );
+function hl_posts_where( $where, $wp_query )
+{
+	global $wpdb;
+    if ( $hl_title = $wp_query->get( 'hl_title' ) ) {
+		$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( $wpdb->esc_like( $hl_title ) ) . '%\'';
+    }
+    return $where;
+}
+
+
+add_action('rest_api_init', function () {
+    register_rest_route('hl-blocks/v1', '/aqc-posts', array(
+        'methods' => 'GET',
+        'callback' => 'aqc_posts',
+    ));
+});
+
+function aqc_posts(WP_REST_Request $request)
+{
+
+	global $post;
+	// You can access parameters via direct array access on the object:
+
+	$posts = [];
+    $aqc_posts = new WP_Query([
+		'posts_per_page' => '24',
+		'hl_title' => $_GET['title'],
+		'post_type' =>  $_GET['post_type'],
+		'post_status' => 'publish'
+	]);
+
+	if($aqc_posts->have_posts() ) {
+		while ($aqc_posts->have_posts() ) {
+			$aqc_posts->the_post();
+			$prepared_post = coblocks_get_post_info([$post])[0];
+			$prepared_post['ID'] = get_the_ID();
+			$posts[] = $prepared_post;
+		} 
+	}
+
+	return [
+		'count' => $aqc_posts->found_posts,
+		'posts' => $posts,
+	];
+
+}
+  

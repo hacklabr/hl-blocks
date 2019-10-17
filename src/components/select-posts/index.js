@@ -1,5 +1,6 @@
 import { BaseControl } from '@wordpress/components';
 import { withInstanceId } from '@wordpress/compose';
+import apiFetch from '@wordpress/api-fetch'
 const { Component } = wp.element;
 
 
@@ -14,7 +15,12 @@ export default class SelectControl extends Component{
     }
     
     onChangeValue( event ) {
-        this.setState({ showPostsList : true, filteredPosts : [1,2,3,4,5,6,7,8,9,9,10,11,12,13,14] }) 
+        this.setState({ showPostsList : true }) 
+
+        apiFetch( { path: `/wp-json/hl-blocks/v1/aqc-posts?title=${event.target.value}&post_type=any` } )
+        .then(results => {
+            this.setState({ filteredPosts : results.posts })
+        })
     }
     
     addPost(post){
@@ -22,8 +28,8 @@ export default class SelectControl extends Component{
         this.setState( { selectedPosts : posts });
     }
 
-    removePost(post){
-        let posts = this.state.selectedPosts.filter(p => p != post);
+    removePost(postID){
+        let posts = this.state.selectedPosts.filter(p => p.ID != postID);
 
         this.setState( { selectedPosts : posts });
     }
@@ -41,8 +47,8 @@ export default class SelectControl extends Component{
                 { this.state.showPostsList && (
                     <div class="select-posts__posts-list">
                         <ul>
-                            { this.state.filteredPosts.map(p => (
-                                <li onClick={ () => this.addPost(p) }>{ p }</li>
+                            { this.state.filteredPosts.map(post => (
+                                <li onClick={ () => this.addPost(post) }>{ post.title }</li>
                             )) }
                         </ul>
                         <button onClick={() => this.closePostsList() } className="components-button is-button is-default">Fechar</button>
@@ -54,8 +60,8 @@ export default class SelectControl extends Component{
                         <div className="select-posts__selected mt-2">
                             <p><strong>Posts selecionados</strong></p>
                             <ul className="mt-0">
-                                { this.state.selectedPosts.map(p => (
-                                    <li> { p }  <span className="remove" onClick={ () => this.removePost(p) } >&times;</span> </li>
+                                { this.state.selectedPosts.map(post => (
+                                    <li> { post.title }  <span className="remove" onClick={ () => this.removePost(post.ID) } >&times;</span> </li>
                                 ) ) }
                             </ul>
                         </div>
