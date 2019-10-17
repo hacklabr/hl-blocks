@@ -271,7 +271,6 @@ class PostsEdit extends Component {
 		const dateFormat = __experimentalGetSettings().formats.date; // eslint-disable-line no-restricted-syntax
 
 		if ( ! hasPosts && postFeedType === 'internal' ) {
-			console.log('props: ', attributes)
 			return (
 				<Fragment>
 					<InspectorControls
@@ -328,6 +327,7 @@ class PostsEdit extends Component {
 						onUpdateStyle={ this.updateStyle }
 						categoriesList={ categoriesList }
 						postCount={ latestPosts && latestPosts.length }
+						onSelectedPostsChange={ (value) => setAttributes( { posts : value } ) }
 					/>
 					<Placeholder
 						icon={ <BlockIcon icon={ icon } /> }
@@ -365,6 +365,7 @@ class PostsEdit extends Component {
 					onUpdateStyle={ this.updateStyle }
 					categoriesList={ categoriesList }
 					postCount={ latestPosts && latestPosts.length }
+					onSelectedPostsChange={ (value) => setAttributes( { posts : value } ) }
 				/>
 				<BlockControls>
 					{ isHorizontalStyle &&

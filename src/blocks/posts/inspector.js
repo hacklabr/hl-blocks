@@ -172,7 +172,7 @@ const Inspector = props => {
 							onOrderChange={ ( value ) => setAttributes( { order: value } ) }
 							onOrderByChange={ ( value ) => setAttributes( { orderBy: value } ) }
 							onCategoryChange={ ( value ) => setAttributes( { categories: '' !== value ? value : undefined } ) }
-							onPostsChange={ (value) => {
+							onPostsChange={ ( value ) => {
 								onSelectedPostsChange(value)
 								setAttributes( { posts : value } ) 
 							} }
