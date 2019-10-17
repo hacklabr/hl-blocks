@@ -16,6 +16,7 @@ const DEFAULT_MAX_ITEMS = 100;
 export default function AdvancedQueryControls( {
 	categoriesList,
 	selectedCategoryId,
+	selectedPosts,
 	numberOfItems,
 	order,
 	orderBy,
@@ -25,13 +26,11 @@ export default function AdvancedQueryControls( {
 	onNumberOfItemsChange,
 	onOrderChange,
 	onOrderByChange,
+	onPostsChange,
 } ) {
 	return [
 		(
-			<SelectPosts onChange={ (value) => {
-				console.log(value);
-			}
-			} />
+			<SelectPosts selectedPosts={ selectedPosts } onChange={ (value) => onPostsChange(value) } />
 		),
 		( onOrderChange && onOrderByChange ) && (
 			<SelectControl

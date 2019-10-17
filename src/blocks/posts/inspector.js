@@ -34,6 +34,7 @@ const Inspector = props => {
 		postCount,
 		hasPosts,
 		hasFeaturedImage,
+		onSelectedPostsChange,
 	} = props;
 
 	const {
@@ -47,6 +48,7 @@ const Inspector = props => {
 		columns,
 		listPosition,
 		imageSize,
+		posts,
 	} = attributes;
 
 	const isStackedStyle = ( 'stacked' === activeStyle.name );
@@ -148,7 +150,7 @@ const Inspector = props => {
 			</Fragment>
 		</PanelBody>
 	);
-
+	
 	const feedSettings = (
 		<PanelBody title={ __( 'Feed Settings' ) } initialOpen={ ! hasPosts ? true : false }>
 			<RadioControl
@@ -166,9 +168,14 @@ const Inspector = props => {
 							{ ...{ order, orderBy } }
 							categoriesList={ categoriesList }
 							selectedCategoryId={ categoriesList.categories }
+							selectedPosts={ posts ? posts : [] }
 							onOrderChange={ ( value ) => setAttributes( { order: value } ) }
 							onOrderByChange={ ( value ) => setAttributes( { orderBy: value } ) }
 							onCategoryChange={ ( value ) => setAttributes( { categories: '' !== value ? value : undefined } ) }
+							onPostsChange={ (value) => {
+								onSelectedPostsChange(value)
+								setAttributes( { posts : value } ) 
+							} }
 						/>
 					}
 					<RangeControl

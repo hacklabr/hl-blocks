@@ -7,11 +7,11 @@ const { Component } = wp.element;
 export default class SelectControl extends Component{
     constructor() {
         super(...arguments);
-        this.state = { showPostsList : false, filteredPosts : [], selectedPosts : [], searchBox : false };
+        this.state = { showPostsList : false, filteredPosts : [], selectedPosts : this.props.selectedPosts, searchBox : false };
     }
 
     emitValue(){
-        // this.props.onChange()
+        this.props.onChange(this.state.selectedPosts);
     }
     
     onChangeValue( event ) {
@@ -26,12 +26,14 @@ export default class SelectControl extends Component{
     addPost(post){
         let posts = [ ...this.state.selectedPosts, post ];
         this.setState( { selectedPosts : posts });
+        setTimeout(() => this.emitValue() , 100)
     }
 
     removePost(postID){
         let posts = this.state.selectedPosts.filter(p => p.ID != postID);
 
         this.setState( { selectedPosts : posts });
+        setTimeout(() => this.emitValue() , 100)
     }
 
     closePostsList(){
