@@ -38,6 +38,8 @@ const Inspector = props => {
 		onOffsetChange
 	} = props;
 
+	console.log(activeStyle);
+
 	const {
 		order,
 		orderBy,
@@ -46,6 +48,7 @@ const Inspector = props => {
 		excerptLength,
 		displayPostDate,
 		displayPostContent,
+		displayFirstPostImage,
 		columns,
 		listPosition,
 		imageSize,
@@ -83,6 +86,13 @@ const Inspector = props => {
 	const settings = (
 		<PanelBody title={ __( 'Posts Settings' ) }>
 			<Fragment>
+				{
+					<ToggleControl
+					label={ __( 'Exibir imagem somente para o primeiro post' ) }
+					checked={ displayFirstPostImage }
+					onChange={ () => setAttributes( { displayFirstPostImage: ! displayFirstPostImage } ) }
+					/>
+				}
 				<ToggleControl
 					label={ __( 'Post Date' ) }
 					checked={ displayPostDate }

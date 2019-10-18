@@ -229,6 +229,7 @@ class PostsEdit extends Component {
 			displayPostContent,
 			displayPostDate,
 			displayPostLink,
+			displayFirstPostImage,
 			postLink,
 			postFeedType,
 			externalRssUrl,
