@@ -16,7 +16,6 @@ icons.styleStacked = <SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 26"
 icons.styleFeatured = (
     <svg width="56" height="26" xmlns="http://www.w3.org/2000/svg">
     <g>
-    <title>Layer 1</title>
     <rect id="svg_8" height="17" width="17" y="4.428571" x="6.785714" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#555d65" fill="#555d65"/>
     <rect id="svg_9" height="17" width="17" y="373.428571" x="832.785714" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#555d65" fill="#555d65"/>
     <rect id="svg_10" height="17" width="17" y="373.428571" x="833.785714" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#555d65" fill="#555d65"/>

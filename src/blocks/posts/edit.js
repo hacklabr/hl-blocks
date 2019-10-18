@@ -172,7 +172,7 @@ class PostsEdit extends Component {
 		}
 
 		if ( this.props.className !== prevProps.className ) {
-			if ( this.props.className.includes( 'is-style-stacked' ) ) {
+			if ( this.props.className.includes( 'is-style-stacked' ) || this.props.className.includes( 'is-style-featured' ) ) {
 				this.props.setAttributes( { columns: this.state.userModifiedColumn ? this.props.attributes.columns : this.state.stackedDefaultColumns } );
 			}
 
@@ -221,6 +221,7 @@ class PostsEdit extends Component {
 
 		const isHorizontalStyle = includes( className, 'is-style-horizontal' );
 		const isStackedStyle = includes( className, 'is-style-stacked' );
+		const isFeaturedStyle = includes( className, 'is-style-featured' );
 
 		const activeStyle = getActiveStyle( styleOptions, className );
 
@@ -242,9 +243,9 @@ class PostsEdit extends Component {
 
 		const imageClasses = classnames( 'wp-block-coblocks-posts__image', 'table', 'flex-0', 'relative', {
 			'mr-3': isHorizontalStyle && listPosition === 'left',
-			'mb-2': isStackedStyle,
+			'mb-2': isStackedStyle || isFeaturedStyle,
 			'ml-3': isHorizontalStyle && listPosition === 'right',
-			'w-full': isStackedStyle,
+			'w-full': isStackedStyle || isFeaturedStyle,
 			[ imageSize ]: isHorizontalStyle,
 		} );
 
@@ -413,7 +414,7 @@ class PostsEdit extends Component {
 
 								const listClasses = classnames( 'flex', 'flex-auto', 'items-stretch', 'w-full', 'mt-0', 'mb-3', 'ml-0', 'pl-0', {
 									'flex-row-reverse': isHorizontalStyle && listPosition === 'right',
-									'flex-col': isStackedStyle,
+									'flex-col': isStackedStyle || isFeaturedStyle,
 									'has-featured-image': featuredImageUrl,
 								} );
 
@@ -439,7 +440,7 @@ class PostsEdit extends Component {
 											</div>
 										}
 										<div className={ contentClasses }>
-											{ isStackedStyle && displayPostDate && post.date_gmt &&
+											{ (isStackedStyle || isFeaturedStyle) && displayPostDate && post.date_gmt &&
 												<time dateTime={ format( 'c', post.date_gmt ) } className="wp-block-coblocks-posts__date mb-1">
 													{ dateI18n( dateFormat, post.date_gmt ) }
 												</time>
