@@ -18,7 +18,6 @@ export default class SelectControl extends Component{
     onChangeValue = _.debounce((value) => {
         this.setState({ showPostsList : true, filteredPosts : [] }) 
 
-        console.log('apiRequesting');
         apiFetch( { path: `/wp-json/hl-blocks/v1/aqc-posts?title=${value}&post_type=any` } )
         .then(results => {
             this.setState({ filteredPosts : results.posts })

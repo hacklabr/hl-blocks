@@ -56,6 +56,11 @@ const styleOptions = [
 		icon: icons.styleHorizontalImageRight,
 		iconAlt: icons.styleHorizontalImageLeft,
 	},
+	{
+		name: 'featured',
+		label: _x( 'Em destaque', 'block style' ),
+		icon: icons.styleFeatured,
+	},
 ];
 
 /**
