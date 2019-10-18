@@ -164,33 +164,32 @@ const Inspector = props => {
 				] }
 				onChange={ ( value ) => setAttributes( { postFeedType: value } ) }
 			/>
-			{ hasPosts ?
-				<Fragment>
-					{ postFeedType === 'internal' &&
-						<AdvancedQueryControls
-							{ ...{ order, orderBy } }
-							categoriesList={ categoriesList }
-							selectedCategoryId={ categoriesList.categories }
-							selectedPosts={ selectedPosts ? selectedPosts : [] }
-							onOrderChange={ ( value ) => setAttributes( { order: value } ) }
-							onOrderByChange={ ( value ) => setAttributes( { orderBy: value } ) }
-							onCategoryChange={ ( value ) => setAttributes( { categories: '' !== value ? value : undefined } ) }
-							onPostsChange={ ( value ) => {
-								onSelectedPostsChange(value)
-								setAttributes( { posts : value } ) 
-							} }
-							onOffsetChange={ (value) => onOffsetChange(value) }
-							offset={ offset }
-						/>
-					}
-					<RangeControl
-						label={ __( 'Number of posts' ) }
-						value={ postsToShow }
-						onChange={ ( value ) => setAttributes( { postsToShow: value } ) }
-						min={ 1 }
-						max={ 20 }
+			<Fragment>
+				{ postFeedType === 'internal' &&
+					<AdvancedQueryControls
+						{ ...{ order, orderBy } }
+						categoriesList={ categoriesList }
+						selectedCategoryId={ categoriesList.categories }
+						selectedPosts={ selectedPosts ? selectedPosts : [] }
+						onOrderChange={ ( value ) => setAttributes( { order: value } ) }
+						onOrderByChange={ ( value ) => setAttributes( { orderBy: value } ) }
+						onCategoryChange={ ( value ) => setAttributes( { categories: '' !== value ? value : undefined } ) }
+						onPostsChange={ ( value ) => {
+							onSelectedPostsChange(value)
+							setAttributes( { posts : value } ) 
+						} }
+						onOffsetChange={ (value) => onOffsetChange(value) }
+						offset={ offset }
 					/>
-				</Fragment> : null }
+				}
+				<RangeControl
+					label={ __( 'Number of posts' ) }
+					value={ postsToShow }
+					onChange={ ( value ) => setAttributes( { postsToShow: value } ) }
+					min={ 1 }
+					max={ 20 }
+				/>
+			</Fragment>
 		</PanelBody>
 	);
 
