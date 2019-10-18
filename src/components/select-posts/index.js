@@ -3,6 +3,7 @@ import { withInstanceId } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch'
 const _ = require('lodash')
 const { Component } = wp.element;
+import './styles/editor.scss';
 
 
 export default class SelectControl extends Component{
