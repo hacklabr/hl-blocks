@@ -1,6 +1,7 @@
 import { BaseControl } from '@wordpress/components';
 import { withInstanceId } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch'
+const _ = require('lodash')
 const { Component } = wp.element;
 
 
@@ -14,14 +15,15 @@ export default class SelectControl extends Component{
         this.props.onChange(this.state.selectedPosts);
     }
     
-    onChangeValue( event ) {
-        this.setState({ showPostsList : true }) 
+    onChangeValue = _.debounce((value) => {
+        this.setState({ showPostsList : true, filteredPosts : [] }) 
 
-        apiFetch( { path: `/wp-json/hl-blocks/v1/aqc-posts?title=${event.target.value}&post_type=any` } )
+        console.log('apiRequesting');
+        apiFetch( { path: `/wp-json/hl-blocks/v1/aqc-posts?title=${value}&post_type=any` } )
         .then(results => {
             this.setState({ filteredPosts : results.posts })
         })
-    }
+    }, 2000)
     
     addPost(post){
         let posts = [ ...this.state.selectedPosts, post ];
@@ -45,13 +47,18 @@ export default class SelectControl extends Component{
 
         return (
             <BaseControl label="Selecionar Posts Específicos" id={ id } className="select-posts">
-                <input type="text" onChange={(e) => this.onChangeValue(e)} placeholder="Comece a digitar para procurar por posts"/>
+                <input type="text" onChange={(e) => this.onChangeValue(e.target.value)} placeholder="Comece a digitar para procurar por posts"/>
                 { this.state.showPostsList && (
                     <div class="select-posts__posts-list">
                         <ul>
-                            { this.state.filteredPosts.map(post => (
-                                <li onClick={ () => this.addPost(post) }>{ post.title }</li>
+                            { this.state.filteredPosts && this.state.filteredPosts.map(post => (
+                                <li  dangerouslySetInnerHTML={ { __html : post.title } }  onClick={ () => this.addPost(post) }></li>
                             )) }
+                            {
+                                (this.state.filteredPosts || this.state.filteredPosts.length == 0) && (
+                                    <li>Carregando...</li>
+                                )
+                            }
                         </ul>
                         <button onClick={() => this.closePostsList() } className="components-button is-button is-default">Fechar</button>
                     </div>
@@ -63,7 +70,7 @@ export default class SelectControl extends Component{
                             <p><strong>Posts selecionados</strong></p>
                             <ul className="mt-0">
                                 { this.state.selectedPosts.map(post => (
-                                    <li> { post.title }  <span className="remove" onClick={ () => this.removePost(post.ID) } >&times;</span> </li>
+                                    <li><span dangerouslySetInnerHTML={ { __html : post.title } }></span> <span className="remove" onClick={ () => this.removePost(post.ID) } >&times;</span> </li>
                                 ) ) }
                             </ul>
                         </div>

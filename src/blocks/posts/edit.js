@@ -485,13 +485,14 @@ class PostsEdit extends Component {
 
 export default compose( [
 	withSelect( ( select, props ) => {
-		const { postsToShow, order, orderBy, categories } = props.attributes;
+		const { postsToShow, order, orderBy, categories, selectedPosts } = props.attributes;
 		const { getEntityRecords } = select( 'core' );
 		const latestPostsQuery = pickBy( {
 			categories,
 			order,
 			orderby: orderBy,
 			per_page: postsToShow,
+			include : selectedPosts.map(p => p.ID)
 		}, ( value ) => ! isUndefined( value ) );
 
 		let latestPosts = getEntityRecords( 'postType', 'post', latestPostsQuery );
