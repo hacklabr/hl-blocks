@@ -49,8 +49,9 @@ const Inspector = props => {
 		columns,
 		listPosition,
 		imageSize,
-		posts,
 		selectedPosts,
+		posts,
+		offset,
 	} = attributes;
 
 	const isStackedStyle = ( 'stacked' === activeStyle.name );
@@ -179,6 +180,7 @@ const Inspector = props => {
 								setAttributes( { posts : value } ) 
 							} }
 							onOffsetChange={ (value) => onOffsetChange(value) }
+							offset={ offset }
 						/>
 					}
 					<RangeControl

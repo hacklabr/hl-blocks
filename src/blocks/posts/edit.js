@@ -287,6 +287,7 @@ class PostsEdit extends Component {
 						postCount={ latestPosts && latestPosts.length }
 						onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
 						onOffsetChange={ (value) => setAttributes({ offset : value }) }
+						offset={ offset }
 					/>
 					<Placeholder
 						icon={ <BlockIcon icon={ icon } /> }
@@ -331,6 +332,7 @@ class PostsEdit extends Component {
 						postCount={ latestPosts && latestPosts.length }
 						onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
 						onOffsetChange={ (value) => setAttributes({ offset : value }) }
+						offset={ offset }
 					/>
 					<Placeholder
 						icon={ <BlockIcon icon={ icon } /> }
@@ -371,6 +373,7 @@ class PostsEdit extends Component {
 					selectedPosts={ selectedPosts }
 					onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
 					onOffsetChange={ (value) => setAttributes({ offset : value }) }
+					offset={ offset }
 				/>
 				<BlockControls>
 					{ isHorizontalStyle &&
@@ -498,8 +501,9 @@ export default compose( [
 			orderby: orderBy,
 			per_page: postsToShow,
 			include : selectedPosts.map(p => p.ID),
-			offset : selectedPosts.length == 0 ? 0 : offset,
+			offset : selectedPosts.length > 0 || !offset ? 0 : offset,
 		}, ( value ) => ! isUndefined( value ) );
+
 
 		let latestPosts = getEntityRecords( 'postType', 'post', latestPostsQuery );
 		if ( latestPosts ) {

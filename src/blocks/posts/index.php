@@ -426,7 +426,7 @@ function coblocks_register_posts_block() {
 					'default' => []
 				),
 				'offset' => array(
-					'type' => 'number',
+					'type' => 'string',
 					'default' => '0'
 				)
 			),

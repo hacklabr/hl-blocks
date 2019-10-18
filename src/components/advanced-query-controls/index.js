@@ -92,11 +92,11 @@ export default function AdvancedQueryControls( {
 			/>
 		),
 		( (!selectedPosts || selectedPosts.length == 0) &&
-			<BaseControl label="Pular quantidade de posts:">
+			<BaseControl label="Pular número de posts:">
 				<input type="number" id="offset" onChange={ ({ target }) => {
 					onOffsetChange(target.value)
 					offset = target.value
-				} } />
+				} } value={ offset } />
 			</BaseControl>
 		)
 	];
