@@ -28,11 +28,12 @@ function coblocks_render_posts_block( $attributes ) {
 		'post__not_in'     => array( $post->ID ),
 	);
 
-	// if(isset($attributes['selectedPosts'])){
-	// 	$args['post__in'] = array_map(function($p) {
-	// 		return $p['ID'];
-	// 	}, $attributes['selectedPosts']);
-	// }
+	if(isset($attributes['selectedPosts'])){
+		$args['post__in'] = array_map(function($p) {
+			return $p['ID'];
+		}, $attributes['selectedPosts']);
+	}
+
 
 	if ( isset( $attributes['categories'] ) ) {
 
@@ -83,6 +84,7 @@ function coblocks_render_posts_block( $attributes ) {
 
 	}
 
+	return coblocks_posts( $formatted_posts, $attributes );
 }
 
 /**
@@ -475,7 +477,7 @@ function aqc_posts(WP_REST_Request $request)
 			$prepared_post = coblocks_get_post_info([$post])[0];
 			$prepared_post['ID'] = get_the_ID();
 			$posts[] = $prepared_post;
-		} 
+		}
 	}
 
 	return [
@@ -484,4 +486,4 @@ function aqc_posts(WP_REST_Request $request)
 	];
 
 }
-  
+
