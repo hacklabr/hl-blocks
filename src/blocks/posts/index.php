@@ -425,6 +425,10 @@ function coblocks_register_posts_block() {
 					],
 					'default' => []
 				),
+				'offset' => array(
+					'type' => 'number',
+					'default' => '0'
+				)
 			),
 			'render_callback' => 'coblocks_render_posts_block',
 		)

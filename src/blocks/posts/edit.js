@@ -232,7 +232,10 @@ class PostsEdit extends Component {
 			listPosition,
 			imageSize,
 			selectedPosts,
+			offset,
 		} = attributes;
+
+		console.log('offset', offset);
 
 		const imageClasses = classnames( 'wp-block-coblocks-posts__image', 'table', 'flex-0', 'relative', {
 			'mr-3': isHorizontalStyle && listPosition === 'left',
@@ -285,6 +288,7 @@ class PostsEdit extends Component {
 						categoriesList={ categoriesList }
 						postCount={ latestPosts && latestPosts.length }
 						onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
+						onOffsetChange={ (value) => setAttributes({ offset : value }) }
 					/>
 					<Placeholder
 						icon={ <BlockIcon icon={ icon } /> }
@@ -328,6 +332,7 @@ class PostsEdit extends Component {
 						categoriesList={ categoriesList }
 						postCount={ latestPosts && latestPosts.length }
 						onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
+						onOffsetChange={ (value) => setAttributes({ offset : value }) }
 					/>
 					<Placeholder
 						icon={ <BlockIcon icon={ icon } /> }
@@ -367,6 +372,7 @@ class PostsEdit extends Component {
 					postCount={ latestPosts && latestPosts.length }
 					selectedPosts={ selectedPosts }
 					onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
+					onOffsetChange={ (value) => setAttributes({ offset : value }) }
 				/>
 				<BlockControls>
 					{ isHorizontalStyle &&
@@ -485,14 +491,18 @@ class PostsEdit extends Component {
 
 export default compose( [
 	withSelect( ( select, props ) => {
-		const { postsToShow, order, orderBy, categories, selectedPosts } = props.attributes;
+		const { postsToShow, order, orderBy, categories, selectedPosts, offset } = props.attributes;
 		const { getEntityRecords } = select( 'core' );
+		
+		let _offset = selectedPosts.length == 0 || postsToShow >= offset ? 0 : offset;
+
 		const latestPostsQuery = pickBy( {
 			categories,
 			order,
 			orderby: orderBy,
 			per_page: postsToShow,
-			include : selectedPosts.map(p => p.ID)
+			include : selectedPosts.map(p => p.ID),
+			_offset,
 		}, ( value ) => ! isUndefined( value ) );
 
 		let latestPosts = getEntityRecords( 'postType', 'post', latestPostsQuery );

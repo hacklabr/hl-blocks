@@ -35,6 +35,7 @@ const Inspector = props => {
 		hasPosts,
 		hasFeaturedImage,
 		onSelectedPostsChange,
+		onOffsetChange
 	} = props;
 
 	const {
@@ -177,6 +178,7 @@ const Inspector = props => {
 								onSelectedPostsChange(value)
 								setAttributes( { posts : value } ) 
 							} }
+							onOffsetChange={ (value) => onOffsetChange(value) }
 						/>
 					}
 					<RangeControl

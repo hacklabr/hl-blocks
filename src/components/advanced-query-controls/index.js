@@ -7,6 +7,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { RangeControl, SelectControl } from '@wordpress/components';
+import { BaseControl } from '@wordpress/components';
 import SelectPosts from '../select-posts';
 import CategorySelect from './category-select';
 
@@ -27,8 +28,8 @@ export default function AdvancedQueryControls( {
 	onOrderChange,
 	onOrderByChange,
 	onPostsChange,
+	onOffsetChange,
 } ) {
-	console.log(selectedPosts);
 	return [
 		(
 			<SelectPosts selectedPosts={ selectedPosts } onChange={ (value) => onPostsChange(value) } />
@@ -89,5 +90,10 @@ export default function AdvancedQueryControls( {
 				required
 			/>
 		),
+		(
+			<BaseControl label="Pular quantidade de posts:">
+				<input type="number" id="offset" onChange={ (event) => onOffsetChange(event.target.value) } />
+			</BaseControl>
+		)
 	];
 }
