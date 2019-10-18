@@ -412,6 +412,9 @@ function coblocks_register_posts_block() {
 				'categories'         => array(
 					'type' => 'string',
 				),
+				'selectedPosts'         => array(
+					'type' => 'array',
+				),
 			),
 			'render_callback' => 'coblocks_render_posts_block',
 		)

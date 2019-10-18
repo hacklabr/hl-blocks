@@ -20,7 +20,7 @@ const { __, _x } = wp.i18n;
 /**
  * Block constants
  */
-const { name, category, supports } = metadata;
+const { name, category, supports, attributes } = metadata;
 
 const settings = {
 	title: _x( 'Posts', 'block name' ),

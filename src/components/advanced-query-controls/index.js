@@ -28,6 +28,7 @@ export default function AdvancedQueryControls( {
 	onOrderByChange,
 	onPostsChange,
 } ) {
+	console.log(selectedPosts);
 	return [
 		(
 			<SelectPosts selectedPosts={ selectedPosts } onChange={ (value) => onPostsChange(value) } />

@@ -49,6 +49,7 @@ const Inspector = props => {
 		listPosition,
 		imageSize,
 		posts,
+		selectedPosts,
 	} = attributes;
 
 	const isStackedStyle = ( 'stacked' === activeStyle.name );
@@ -168,7 +169,7 @@ const Inspector = props => {
 							{ ...{ order, orderBy } }
 							categoriesList={ categoriesList }
 							selectedCategoryId={ categoriesList.categories }
-							selectedPosts={ posts ? posts : [] }
+							selectedPosts={ selectedPosts ? selectedPosts : [] }
 							onOrderChange={ ( value ) => setAttributes( { order: value } ) }
 							onOrderByChange={ ( value ) => setAttributes( { orderBy: value } ) }
 							onCategoryChange={ ( value ) => setAttributes( { categories: '' !== value ? value : undefined } ) }

@@ -231,7 +231,7 @@ class PostsEdit extends Component {
 			excerptLength,
 			listPosition,
 			imageSize,
-			posts,
+			selectedPosts,
 		} = attributes;
 
 		const imageClasses = classnames( 'wp-block-coblocks-posts__image', 'table', 'flex-0', 'relative', {
@@ -284,7 +284,7 @@ class PostsEdit extends Component {
 						onUpdateStyle={ this.updateStyle }
 						categoriesList={ categoriesList }
 						postCount={ latestPosts && latestPosts.length }
-						onSelectedPostsChange={ (value) => setAttributes( { posts : value } ) }
+						onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
 					/>
 					<Placeholder
 						icon={ <BlockIcon icon={ icon } /> }
@@ -327,7 +327,7 @@ class PostsEdit extends Component {
 						onUpdateStyle={ this.updateStyle }
 						categoriesList={ categoriesList }
 						postCount={ latestPosts && latestPosts.length }
-						onSelectedPostsChange={ (value) => setAttributes( { posts : value } ) }
+						onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
 					/>
 					<Placeholder
 						icon={ <BlockIcon icon={ icon } /> }
@@ -365,7 +365,8 @@ class PostsEdit extends Component {
 					onUpdateStyle={ this.updateStyle }
 					categoriesList={ categoriesList }
 					postCount={ latestPosts && latestPosts.length }
-					onSelectedPostsChange={ (value) => setAttributes( { posts : value } ) }
+					selectedPosts={ selectedPosts }
+					onSelectedPostsChange={ (value) => setAttributes( { selectedPosts : value } ) }
 				/>
 				<BlockControls>
 					{ isHorizontalStyle &&
