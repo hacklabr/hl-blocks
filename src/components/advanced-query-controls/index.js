@@ -21,6 +21,7 @@ export default function AdvancedQueryControls( {
 	numberOfItems,
 	order,
 	orderBy,
+	offset,
 	maxItems = DEFAULT_MAX_ITEMS,
 	minItems = DEFAULT_MIN_ITEMS,
 	onCategoryChange,
@@ -31,7 +32,7 @@ export default function AdvancedQueryControls( {
 	onOffsetChange,
 } ) {
 	return [
-		(
+		( (!offset || offset == 0) &&
 			<SelectPosts selectedPosts={ selectedPosts } onChange={ (value) => onPostsChange(value) } />
 		),
 		( onOrderChange && onOrderByChange ) && (
@@ -90,9 +91,12 @@ export default function AdvancedQueryControls( {
 				required
 			/>
 		),
-		(
+		( (!selectedPosts || selectedPosts.length == 0) &&
 			<BaseControl label="Pular quantidade de posts:">
-				<input type="number" id="offset" onChange={ (event) => onOffsetChange(event.target.value) } />
+				<input type="number" id="offset" onChange={ ({ target }) => {
+					onOffsetChange(target.value)
+					offset = target.value
+				} } />
 			</BaseControl>
 		)
 	];

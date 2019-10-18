@@ -235,8 +235,6 @@ class PostsEdit extends Component {
 			offset,
 		} = attributes;
 
-		console.log('offset', offset);
-
 		const imageClasses = classnames( 'wp-block-coblocks-posts__image', 'table', 'flex-0', 'relative', {
 			'mr-3': isHorizontalStyle && listPosition === 'left',
 			'mb-2': isStackedStyle,
@@ -494,15 +492,13 @@ export default compose( [
 		const { postsToShow, order, orderBy, categories, selectedPosts, offset } = props.attributes;
 		const { getEntityRecords } = select( 'core' );
 		
-		let _offset = selectedPosts.length == 0 || postsToShow >= offset ? 0 : offset;
-
 		const latestPostsQuery = pickBy( {
 			categories,
 			order,
 			orderby: orderBy,
 			per_page: postsToShow,
 			include : selectedPosts.map(p => p.ID),
-			_offset,
+			offset : selectedPosts.length == 0 ? 0 : offset,
 		}, ( value ) => ! isUndefined( value ) );
 
 		let latestPosts = getEntityRecords( 'postType', 'post', latestPostsQuery );

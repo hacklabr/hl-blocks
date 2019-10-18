@@ -28,11 +28,11 @@ function coblocks_render_posts_block( $attributes ) {
 		'post__not_in'     => array( $post->ID ),
 	);
 
-	if(isset($attributes['selectedPosts'])){
-		$args['post__in'] = array_map(function($p) {
-			return $p['ID'];
-		}, $attributes['selectedPosts']);
-	}
+	// if(isset($attributes['selectedPosts'])){
+	// 	$args['post__in'] = array_map(function($p) {
+	// 		return $p['ID'];
+	// 	}, $attributes['selectedPosts']);
+	// }
 
 	if ( isset( $attributes['categories'] ) ) {
 
