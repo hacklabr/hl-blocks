@@ -414,6 +414,10 @@ function coblocks_register_posts_block() {
 				),
 				'selectedPosts'         => array(
 					'type' => 'array',
+					'items' => [
+						'type' => 'object'
+					],
+					'default' => []
 				),
 			),
 			'render_callback' => 'coblocks_render_posts_block',
